@@ -1,0 +1,4 @@
+{
+  "baseUrl": "https://localhost:7037",
+  "baseUrlProduction": "https://app-spotify-web-westeu-dev-001.azurewebsites.net"
+}

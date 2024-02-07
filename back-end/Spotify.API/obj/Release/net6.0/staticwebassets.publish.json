@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "PSlAfbHUF9zEuWzQY2Yc+FCDMVeZ5CxS5X4cnYxWoIo=",
+  "Source": "Spotify.API",
+  "BasePath": "_content/Spotify.API",
+  "Mode": "Default",
+  "ManifestType": "Publish",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

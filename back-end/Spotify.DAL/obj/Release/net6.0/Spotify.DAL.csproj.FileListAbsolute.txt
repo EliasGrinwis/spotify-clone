@@ -1,0 +1,13 @@
+C:\Users\Elias\Documents\spotify_clone\back-end\Spotify.DAL\bin\Release\net6.0\Spotify.DAL.deps.json
+C:\Users\Elias\Documents\spotify_clone\back-end\Spotify.DAL\bin\Release\net6.0\Spotify.DAL.dll
+C:\Users\Elias\Documents\spotify_clone\back-end\Spotify.DAL\bin\Release\net6.0\Spotify.DAL.pdb
+C:\Users\Elias\Documents\spotify_clone\back-end\Spotify.DAL\obj\Release\net6.0\Spotify.DAL.csproj.AssemblyReference.cache
+C:\Users\Elias\Documents\spotify_clone\back-end\Spotify.DAL\obj\Release\net6.0\Spotify.DAL.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Elias\Documents\spotify_clone\back-end\Spotify.DAL\obj\Release\net6.0\Spotify.DAL.AssemblyInfoInputs.cache
+C:\Users\Elias\Documents\spotify_clone\back-end\Spotify.DAL\obj\Release\net6.0\Spotify.DAL.AssemblyInfo.cs
+C:\Users\Elias\Documents\spotify_clone\back-end\Spotify.DAL\obj\Release\net6.0\Spotify.DAL.csproj.CoreCompileInputs.cache
+C:\Users\Elias\Documents\spotify_clone\back-end\Spotify.DAL\obj\Release\net6.0\Spotify.DAL.sourcelink.json
+C:\Users\Elias\Documents\spotify_clone\back-end\Spotify.DAL\obj\Release\net6.0\Spotify.DAL.dll
+C:\Users\Elias\Documents\spotify_clone\back-end\Spotify.DAL\obj\Release\net6.0\refint\Spotify.DAL.dll
+C:\Users\Elias\Documents\spotify_clone\back-end\Spotify.DAL\obj\Release\net6.0\Spotify.DAL.pdb
+C:\Users\Elias\Documents\spotify_clone\back-end\Spotify.DAL\obj\Release\net6.0\ref\Spotify.DAL.dll
