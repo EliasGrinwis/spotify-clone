@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import {Icon} from "@iconify/react";
 import {useRecoilState, useRecoilValue} from "recoil";
 import {playingState, songState} from "../store";
-import SongApi from "../apis/songs_api";
+import SongApi from "../apis/SongApi";
 
 export default function Bottombar() {
   const song = useRecoilValue(songState);
@@ -63,11 +63,11 @@ export default function Bottombar() {
   }, []);
 
   useEffect(() => {
-    const currentIndex = songs.findIndex(
-      (songToFind) => songToFind.name === song.name
-    );
+    // const currentIndex = songs.findIndex(
+    //   (songToFind) => songToFind.name === song.name
+    // );
 
-    console.log(currentIndex);
+    //console.log(currentIndex);
 
     const newAudio = new Audio(song.url);
 
@@ -76,8 +76,8 @@ export default function Bottombar() {
     });
 
     // Play the audio immediately when the song.url changes
-    newAudio.play().catch((error) => {
-      console.error("Play error:", error);
+    newAudio.play().catch(() => {
+      // Do nothing inside the catch block
     });
 
     setAudio(newAudio);

@@ -21,6 +21,11 @@ export const userProfileState = atom({
   default: [],
 });
 
+export const extraUserInformationState = atom({
+  key: "extraUserInformationState",
+  default: [],
+});
+
 export const favoriteSongsState = atom({
   key: "favoriteSongsState",
   default: [],

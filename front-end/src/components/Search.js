@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import {Icon} from "@iconify/react";
-import SongApi from "../apis/songs_api";
+import SongApi from "../apis/SongApi";
 import {useRecoilState, useRecoilValue} from "recoil";
 import {
   favoriteSongsState,
@@ -8,10 +8,10 @@ import {
   songState,
   userProfileState,
 } from "../store";
-import Loading from "../components/loading";
-import Avatar from "../components/avatar";
-import UserSongApi from "../apis/usersong_api";
-import SuccessMessage from "../components/success_message";
+import Loading from "./Loading";
+import Avatar from "./Avatar";
+import UserSongApi from "../apis/UserSongApi";
+import SuccessMessage from "../components/SuccessMessage";
 
 export default function Search() {
   const [search, setSearch] = useState("");

@@ -1,21 +1,25 @@
 import "./App.css";
 import {Route, Routes} from "react-router-dom";
-import Bottombar from "./components/bottombar";
-import Sidebar from "./components/sidebar";
-import Search from "./pages/search";
-import Home from "./pages/home";
+import Bottombar from "./components/BottomBar";
+import Sidebar from "./components/SideBar";
+import Search from "./components/Search";
+import Home from "./components/Home";
 import {useRecoilValue} from "recoil";
 import {userProfileState} from "./store";
-import Login from "./pages/login";
-import Dashboard from "./pages/admin/dashboard";
-import FavoriteSongs from "./components/favorite_songs";
+import Login from "./components/Login";
+import Dashboard from "./components/Dashboard";
+import FavoriteSongs from "./components/FavoriteSongs";
+import Profile from "./components/Profile";
 
 export default function App() {
   const userProfile = useRecoilValue(userProfileState);
 
+  // Check if user is logged in
+  const isLoggedIn = userProfile !== undefined && userProfile !== null;
+
   return (
     <>
-      {!userProfile ? (
+      {!isLoggedIn ? (
         <Login />
       ) : (
         <div className="flex flex-col h-screen overflow-hidden">
@@ -27,6 +31,15 @@ export default function App() {
                 <Route path="/search" element={<Search />} />
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/collection/tracks" element={<FavoriteSongs />} />
+                {userProfile && userProfile.displayName && (
+                  <Route
+                    path={
+                      "/user/" +
+                      userProfile.displayName.toLowerCase().replace(/\s/g, "")
+                    }
+                    element={<Profile />}
+                  />
+                )}
               </Routes>
             </div>
           </div>

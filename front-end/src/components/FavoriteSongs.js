@@ -1,13 +1,16 @@
 import {useRecoilValue} from "recoil";
-import Avatar from "./avatar";
-import {favoriteSongsState, userProfileState} from "../store";
+import Avatar from "./Avatar";
+import {
+  extraUserInformationState,
+  favoriteSongsState,
+  userProfileState,
+} from "../store";
 import {Icon} from "@iconify/react";
 
 export default function FavoriteSongs() {
   const userProfile = useRecoilValue(userProfileState);
   const favoriteSongs = useRecoilValue(favoriteSongsState);
-
-  console.log(userProfile);
+  const userInformationState = useRecoilValue(extraUserInformationState);
 
   return (
     <div className="p-8 bg-background">
@@ -26,7 +29,7 @@ export default function FavoriteSongs() {
             <div className="flex items-center gap-3 mt-3">
               <img
                 className="rounded-full w-6 h-6"
-                src={userProfile.photoURL}
+                src={userInformationState.photoURL}
                 alt={userProfile.displayName}
               />
               <div className="flex text-sm items-center">

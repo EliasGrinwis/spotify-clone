@@ -46,12 +46,9 @@ if (app.Environment.IsDevelopment())
 
 app.UseCors(corsConfig);
 
-if (app.Environment.IsDevelopment())
-{
-    using var scope = app.Services.CreateScope();
-    var myContext = scope.ServiceProvider.GetRequiredService<SpotifyContext>();
-    DBInitializer.Initialize(myContext);
-}
+using var scope = app.Services.CreateScope();
+var myContext = scope.ServiceProvider.GetRequiredService<SpotifyContext>();
+DBInitializer.Initialize(myContext);
 
 app.UseHttpsRedirection();
 

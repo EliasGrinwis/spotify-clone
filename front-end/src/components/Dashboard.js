@@ -1,10 +1,10 @@
-import Avatar from "../../components/avatar";
+import Avatar from "./Avatar";
 import React, {useState} from "react";
 import {useRecoilValue} from "recoil";
-import {userProfileState} from "../../store";
+import {userProfileState} from "../store";
 import {Icon} from "@iconify/react";
-import {storage, ref, uploadBytes, getDownloadURL} from "../../config/firebase";
-import SongApi from "../../apis/songs_api";
+import {storage, ref, uploadBytes, getDownloadURL} from "../config/firebase";
+import SongApi from "../apis/SongApi";
 import {uploadBytesResumable} from "firebase/storage";
 
 export default function Dashboard() {
@@ -64,30 +64,30 @@ export default function Dashboard() {
       {/* Centered model */}
       {model && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-          <div class="relative p-4 w-full max-w-md max-h-full">
-            <div class="relative rounded-lg shadow bg-lightgray">
-              <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t border-customgray">
-                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+          <div className="relative p-4 w-full max-w-md max-h-full">
+            <div className="relative rounded-lg shadow bg-lightgray">
+              <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t border-customgray">
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
                   Create New Song
                 </h3>
                 <button
                   type="button"
-                  class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                  className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
                   data-modal-toggle="crud-modal">
                   <Icon
                     className="w-5 h-5"
                     icon="material-symbols:close"
                     onClick={() => setModel(false)}
                   />
-                  <span class="sr-only">Close modal</span>
+                  <span className="sr-only">Close modal</span>
                 </button>
               </div>
-              <div class="p-4 md:p-5">
-                <div class="grid gap-4 mb-4 grid-cols-4">
-                  <div class="col-span-3">
+              <div className="p-4 md:p-5">
+                <div className="grid gap-4 mb-4 grid-cols-4">
+                  <div className="col-span-3">
                     <label
-                      for="name"
-                      class="block mb-2 text-sm font-medium text-white">
+                      htmlFor="name"
+                      className="block mb-2 text-sm font-medium text-white">
                       Name
                     </label>
                     <input
@@ -96,16 +96,16 @@ export default function Dashboard() {
                       type="text"
                       name="name"
                       id="name"
-                      class="outline-none border text-sm rounded-lg block w-full p-2.5 bg-searchColor border-customgray placeholder-customgray text-white"
+                      className="outline-none border text-sm rounded-lg block w-full p-2.5 bg-searchColor border-customgray placeholder-customgray text-white"
                       placeholder="Type song name"
                       required=""
                     />
                   </div>
 
-                  <div class="col-span-1">
+                  <div className="col-span-1">
                     <label
-                      for="name"
-                      class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                      htmlFor="name"
+                      className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                       Duration
                     </label>
                     <input
@@ -116,16 +116,16 @@ export default function Dashboard() {
                       type="text"
                       name="name"
                       id="name"
-                      class="outline-none border text-sm rounded-lg block w-full p-2.5 bg-searchColor border-customgray placeholder-customgray text-white"
+                      className="outline-none border text-sm rounded-lg block w-full p-2.5 bg-searchColor border-customgray placeholder-customgray text-white"
                       placeholder="e.g 2:43"
                       required=""
                     />
                   </div>
 
-                  <div class="col-span-4">
+                  <div className="col-span-4">
                     <label
-                      for="songWriter"
-                      class="block mb-2 text-sm font-medium text-white">
+                      htmlFor="songWriter"
+                      className="block mb-2 text-sm font-medium text-white">
                       songWriter
                     </label>
                     <input
@@ -136,7 +136,7 @@ export default function Dashboard() {
                       type="text"
                       name="songWriter"
                       id="songWriter"
-                      class="outline-none border text-sm rounded-lg block w-full p-2.5 bg-searchColor border-customgray placeholder-customgray text-white"
+                      className="outline-none border text-sm rounded-lg block w-full p-2.5 bg-searchColor border-customgray placeholder-customgray text-white"
                       placeholder="Type song writer"
                       required=""
                     />
@@ -201,16 +201,16 @@ export default function Dashboard() {
                 <button
                   onClick={createSong}
                   type="submit"
-                  class="mt-4 text-lightgray inline-flex border-none items-center bg-green-500 hover:bg-green-600 focus:ring-4 focus:outline-none outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+                  className="mt-4 text-lightgray inline-flex border-none items-center bg-green-500 hover:bg-green-600 focus:ring-4 focus:outline-none outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center">
                   <svg
-                    class="me-1 -ms-1 w-5 h-5"
+                    className="me-1 -ms-1 w-5 h-5"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                     xmlns="http://www.w3.org/2000/svg">
                     <path
-                      fill-rule="evenodd"
+                      fillRule="evenodd"
                       d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
-                      clip-rule="evenodd"></path>
+                      clipRule="evenodd"></path>
                   </svg>
                   Add new song
                 </button>

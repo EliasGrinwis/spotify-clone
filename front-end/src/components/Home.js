@@ -1,5 +1,5 @@
-import Login from "./login";
-import Avatar from "../components/avatar";
+import Login from "./Login";
+import Avatar from "./Avatar";
 import React from "react";
 import {useRecoilValue} from "recoil";
 import {userProfileState} from "../store";

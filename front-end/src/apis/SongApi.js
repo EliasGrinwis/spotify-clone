@@ -4,7 +4,7 @@ import configData from "../config/config.json";
 let songBaseUrl;
 
 if (process.env.NODE_ENV === "development") {
-  songBaseUrl = configData.baseUrl + "/api/songs";
+  songBaseUrl = configData.baseUrlDevelopment + "/api/songs";
 } else {
   songBaseUrl = configData.baseUrlProduction + "/api/songs";
 }
