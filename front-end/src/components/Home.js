@@ -1,4 +1,3 @@
-import Login from "./Login";
 import Avatar from "./Avatar";
 import React from "react";
 import {useRecoilValue} from "recoil";
@@ -20,8 +19,6 @@ export default function Home() {
         Enjoy a seamless music experience, all for free, without any
         interruptions!
       </p>
-
-      <Login />
     </div>
   );
 }

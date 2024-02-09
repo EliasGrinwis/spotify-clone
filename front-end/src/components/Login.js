@@ -3,15 +3,16 @@ import {
   getAuth,
   setPersistence,
   signInWithPopup,
-  inMemoryPersistence,
   GoogleAuthProvider,
+  browserLocalPersistence,
 } from "firebase/auth";
 import {useSetRecoilState} from "recoil";
 import {extraUserInformationState, userProfileState} from "../store";
 import UserApi from "../apis/UserApi";
+import spotifyLogo from "../images/spotify_logo.png";
+import googleLogo from "../images/google_logo.png";
 
 export default function Login() {
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   const authInstance = getAuth();
@@ -22,15 +23,15 @@ export default function Login() {
 
   const handleSignIn = async () => {
     try {
-      setLoading(true);
       setError(null);
 
-      // Sign in with Google provider
       const googleProvider = new GoogleAuthProvider();
+
+      // Sign in with Google provider
       await signInWithPopup(authInstance, googleProvider);
 
       // Set the persistence
-      await setPersistence(authInstance, inMemoryPersistence);
+      await setPersistence(authInstance, browserLocalPersistence);
 
       // Get the current user
       const user = authInstance.currentUser;
@@ -61,27 +62,50 @@ export default function Login() {
 
       setExtraUserInformationState(result.data);
       setUserProfile(user);
-
-      setLoading(false);
     } catch (error) {
       // Handle Errors here.
       const errorMessage = error.message;
       setError(errorMessage);
-
-      setLoading(false);
     }
   };
 
   return (
-    <>
-      <button
-        onClick={handleSignIn}
-        className={`text-text ${loading ? "disabled" : ""}`}
-        disabled={loading}>
-        {loading ? "Signing in..." : "Sign in"}
-      </button>
+    <div className="bg-background h-screen flex flex-col">
+      <div className="p-8">
+        <img src={spotifyLogo} className="w-32 h-auto" alt="Spotify logo" />
+      </div>
+      <div className="p-8 gradient-background flex-1 flex items-center justify-center">
+        <div className="p-14 bg-background text-text w-[750px] h-full rounded-lg">
+          <h1 className="text-5xl text-center font-bold">
+            Bestaand Spotify account
+          </h1>
+          <div className="py-10">
+            <div
+              onClick={handleSignIn}
+              className="w-[50%] outline outline-1 outline-outlineColor hover:outline-white p-3 rounded-full text-center mx-auto flex items-center justify-evenly cursor-pointer">
+              <img src={googleLogo} className="w-6 h-auto" alt="Google logo" />
+              <p className="text-md font-semibold">Verdergaan met Google</p>
+            </div>
+          </div>
+          <div className="outline outline-1 outline-[#292929]"></div>
+          <div className="py-10">
+            <div class="text-center bg-outlineColor p-4 rounded-lg">
+              <p class="text-lg font-semibold">Coming Soon</p>
+            </div>
 
+            {/* <div className="min-w-[40%] w-80 mx-auto">
+            <label className="block mb-2 w-full">
+              E-mailadres of gebruikersnaam
+            </label>
+            <input
+              className="bg-transparent p-2 outline outline-1 outline-outlineColor rounded-sm w-full"
+              placeholder="E-mailadres of gebruikersnaam"
+            />
+          </div> */}
+          </div>
+        </div>
+      </div>
       {error && <p className="error-message">{error}</p>}
-    </>
+    </div>
   );
 }

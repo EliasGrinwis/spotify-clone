@@ -21,3 +21,7 @@
   background-color: #fff; /* Change the color as needed */
   animation: shrinkLine 5s forwards; /* 5s duration, forwards to keep final styles */
 }
+
+.gradient-background {
+  background: linear-gradient(to bottom, #292929, #000000);
+}

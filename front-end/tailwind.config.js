@@ -10,6 +10,7 @@ module.exports = {
         customgray: "#a7a7a7",
         searchColor: "#242424",
         progressBar: "#4d4d4d",
+        outlineColor: "#717171",
       },
     },
   },

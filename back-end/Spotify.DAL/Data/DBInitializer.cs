@@ -8,31 +8,18 @@ namespace Spotify.DAL.Data
         public static void ClearAllTables(SpotifyContext context)
         {
             context.Songs.RemoveRange(context.Songs);
-            context.UserSongs.RemoveRange(context.UserSongs);
-            //context.Users.RemoveRange(context.Users);
 
             // Reset primary key sequence for each table
             context.Database.ExecuteSqlRaw("DBCC CHECKIDENT ('Song', RESEED, 0)");
-            context.Database.ExecuteSqlRaw("DBCC CHECKIDENT ('UserSongs', RESEED, 0)");
-            //context.Database.ExecuteSqlRaw("DBCC CHECKIDENT ('Users', RESEED, 0)");
 
             context.SaveChanges();
         }
 
         public static void Initialize(SpotifyContext context)
         {
-            context.Database.EnsureDeleted();
             context.Database.EnsureCreated();
-            /*if (!context.Database.CanConnect())
-            {
-                // If the database doesn't exist, create it without clearing tables
-                context.Database.EnsureCreated();
-            }
-            else
-            {
-                // If the database exists, clear all tables
-                ClearAllTables(context);
-            }*/
+
+            ClearAllTables(context);
 
             context.Songs.AddRange(
                 new Song { Name = "Scared To Start", Description = "First song description", Image = "https://firebasestorage.googleapis.com/v0/b/spotify-ab8ac.appspot.com/o/images%2Fscared_to_start.jpg?alt=media&token=75226858-f1e6-452b-a1eb-ef04cf572224", Url = "https://firebasestorage.googleapis.com/v0/b/spotify-ab8ac.appspot.com/o/songs%2FMichael%20Marcagi%20-%20Scared%20To%20Start%20(Official%20Lyric%20Video).mp3?alt=media&token=7420aefe-0fff-43c4-afed-1fdd1af80319", Duration = "2:39", SongWriter = "Michael Marcagi"},

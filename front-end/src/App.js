@@ -14,12 +14,9 @@ import Profile from "./components/Profile";
 export default function App() {
   const userProfile = useRecoilValue(userProfileState);
 
-  // Check if user is logged in
-  const isLoggedIn = userProfile !== undefined && userProfile !== null;
-
   return (
     <>
-      {!isLoggedIn ? (
+      {userProfile.length === 0 ? (
         <Login />
       ) : (
         <div className="flex flex-col h-screen overflow-hidden">
