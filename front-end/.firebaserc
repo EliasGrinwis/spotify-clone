@@ -1,5 +1,15 @@
 {
   "projects": {
     "default": "spotify-ab8ac"
-  }
+  },
+  "targets": {
+    "spotify-ab8ac": {
+      "hosting": {
+        "web": [
+          "spotify-ab8ac"
+        ]
+      }
+    }
+  },
+  "etags": {}
 }

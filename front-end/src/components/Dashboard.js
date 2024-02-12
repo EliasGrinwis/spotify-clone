@@ -48,7 +48,7 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="p-8 bg-background flex-1 items-center relative">
+    <div className="p-8 bg-background flex-1 items-center relative rounded-md">
       <div className="flex justify-between w-full">
         <h1 className="text-3xl text-text font-bold mb-4">
           Here you can manage songs!

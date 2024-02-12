@@ -1,21 +1,17 @@
 import React, {useState} from "react";
 import {
   getAuth,
-  setPersistence,
-  signInWithPopup,
-  GoogleAuthProvider,
-  browserLocalPersistence,
-  signInWithEmailAndPassword,
+  updateProfile,
+  createUserWithEmailAndPassword,
 } from "firebase/auth";
 import {useSetRecoilState} from "recoil";
 import {extraUserInformationState, userProfileState} from "../store";
 import UserApi from "../apis/UserApi";
 import spotifyLogo from "../images/spotify_logo.png";
-import googleLogo from "../images/google_logo.png";
 import {Icon} from "@iconify/react";
 import {Link, useNavigate} from "react-router-dom";
 
-export default function Login() {
+export default function Register() {
   const authInstance = getAuth();
   const setUserProfile = useSetRecoilState(userProfileState);
   const setExtraUserInformationState = useSetRecoilState(
@@ -28,14 +24,54 @@ export default function Login() {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const handleSignInWithEmailAndPassword = async () => {
-    signInWithEmailAndPassword(
+  const handleInputChange = (e) => {
+    const {name, value} = e.target;
+    setEmailAndPassword((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
+  const handleSignUpWithEmailAndPassword = async () => {
+    createUserWithEmailAndPassword(
       authInstance,
       emailAndPassword.email,
       emailAndPassword.password
     )
       .then(async (userCredential) => {
         const user = userCredential.user;
+
+        // Extract display name from email address
+        const displayName = emailAndPassword.email.split("@")[0];
+        const defaultPhoto =
+          "https://firebasestorage.googleapis.com/v0/b/spotify-ab8ac.appspot.com/o/profileImages%2FdefaultUser.jpg?alt=media&token=577520d6-1375-4f73-b9a2-d1824b6c75e2";
+
+        await updateProfile(user, {
+          displayName: displayName,
+          photoURL: defaultPhoto,
+        });
+
+        // Check if the user exists in the database
+        let existingUser = await UserApi.getUsers()
+          .then((response) => {
+            return response.data.find((u) => u.id === user.uid);
+          })
+          .catch((error) => {
+            console.error("Error fetching user data:", error);
+            throw error;
+          });
+
+        // If the user doesn't exist, create a new user entry
+        if (!existingUser) {
+          existingUser = {
+            id: user.uid,
+            photoURL: user.photoURL,
+          };
+          await UserApi.createUser(existingUser).catch((error) => {
+            console.error("Error creating user:", error);
+            throw error;
+          });
+        }
 
         const result = await UserApi.getUser(user.uid);
 
@@ -45,62 +81,8 @@ export default function Login() {
         navigate("/");
       })
       .catch(() => {
-        setError("Onjuiste gebruikersnaam of wachtwoord.");
+        setError("Een account met dit e-mailadres bestaat al.");
       });
-  };
-
-  const handleInputChange = (e) => {
-    const {name, value} = e.target;
-    setEmailAndPassword((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
-
-  const handleSignIn = async () => {
-    try {
-      const googleProvider = new GoogleAuthProvider();
-
-      // Sign in with Google provider
-      await signInWithPopup(authInstance, googleProvider);
-
-      // Set the persistence
-      await setPersistence(authInstance, browserLocalPersistence);
-
-      // Get the current user
-      const user = authInstance.currentUser;
-
-      // Check if the user exists in the database
-      let existingUser = await UserApi.getUsers()
-        .then((response) => {
-          return response.data.find((u) => u.id === user.uid);
-        })
-        .catch((error) => {
-          console.error("Error fetching user data:", error);
-          throw error;
-        });
-
-      // If the user doesn't exist, create a new user entry
-      if (!existingUser) {
-        existingUser = {
-          id: user.uid,
-          photoURL: user.photoURL,
-        };
-        await UserApi.createUser(existingUser).catch((error) => {
-          console.error("Error creating user:", error);
-          throw error;
-        });
-      }
-
-      const result = await UserApi.getUser(user.uid);
-
-      setExtraUserInformationState(result.data);
-      setUserProfile(user);
-
-      navigate("/");
-    } catch (error) {
-      // Handle Errors here.
-    }
   };
 
   return (
@@ -111,7 +93,7 @@ export default function Login() {
       <div className="p-8 gradient-background flex-1 flex items-center justify-center">
         <div className="p-14 bg-background text-text w-[750px] h-full rounded-lg">
           <h1 className="text-5xl text-center font-bold">
-            Bestaand Spotify account
+            Create a Spotify account
           </h1>
           <div className="py-10">
             {error && (
@@ -123,12 +105,6 @@ export default function Login() {
                 {error}
               </div>
             )}
-            <div
-              onClick={handleSignIn}
-              className="sm:w-[50%] outline outline-1 outline-outlineColor hover:outline-white p-3 rounded-full text-center mx-auto flex items-center justify-evenly cursor-pointer">
-              <img src={googleLogo} className="w-6 h-auto" alt="Google logo" />
-              <p className="text-md font-semibold">Verdergaan met Google</p>
-            </div>
           </div>
           <div className="outline outline-1 outline-[#292929]"></div>
           <div className="py-10">
@@ -172,17 +148,9 @@ export default function Login() {
             <div className="min-w-[40%] w-80 mx-auto mt-6">
               <button
                 className="bg-green-500 p-2 w-full rounded-full text-black font-semibold"
-                onClick={handleSignInWithEmailAndPassword}>
-                Inloggen
+                onClick={handleSignUpWithEmailAndPassword}>
+                Registeren
               </button>
-            </div>
-
-            <div className="min-w-[40%] w-80 mx-auto mt-6 text-center">
-              <a
-                href="/test"
-                className="w-full rounded-full text-text underline font-semibold ">
-                Je wachtwoord vergeten?
-              </a>
             </div>
           </div>
 
@@ -190,10 +158,10 @@ export default function Login() {
 
           <div className="pt-10 text-center">
             <p>
-              Heb je nog geen account?
-              <Link to="/register">
+              Heb je al een account?
+              <Link to="/login">
                 <span className="ml-1 font-semibold underline cursor-pointer">
-                  Nieuw Spotify account
+                  Log hier in.
                 </span>
               </Link>
             </p>

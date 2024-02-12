@@ -61,7 +61,7 @@ export default function Profile() {
   };
 
   return (
-    <div className="p-8 bg-background">
+    <div className="p-8 bg-background rounded-md">
       <div className="flex justify-between">
         <div className="flex items-end gap-5">
           <div className="relative">

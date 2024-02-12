@@ -141,11 +141,12 @@ export default function Bottombar() {
         <div className="flex items-center">
           <p className="text-white mr-2">{formatTime(progress)}</p>
           <input
+            id="myRange"
             type="range"
             value={progress}
             onChange={(e) => handleProgressChange(Number(e.target.value))}
             max={audio.duration || 100}
-            className="appearance-none w-96 h-1 bg-[#4d4d4d] rounded-none outline-none text-white "
+            className="appearance-none w-96 h-1.5 rounded-none outline-none"
           />
           <p className="text-white ml-2">{song.duration}</p>
         </div>
@@ -167,7 +168,7 @@ export default function Bottombar() {
             value={volume}
             onChange={(e) => setVolume(Number(e.target.value))}
             max={100}
-            className="appearance-none w-24 h-1 bg-[#4d4d4d] rounded-full outline-none text-white"
+            className="appearance-none w-24 h-1.5 bg-[#4d4d4d] rounded-full outline-none text-white"
           />
         </div>
 

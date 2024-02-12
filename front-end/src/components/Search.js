@@ -12,6 +12,7 @@ import Loading from "./Loading";
 import Avatar from "./Avatar";
 import UserSongApi from "../apis/UserSongApi";
 import SuccessMessage from "../components/SuccessMessage";
+import SuccessDeleteMessage from "./SuccessDeleteMessage";
 
 export default function Search() {
   const [search, setSearch] = useState("");
@@ -28,6 +29,7 @@ export default function Search() {
   const isSongInFavorites = (song) => favoriteSongs.includes(song.id);
 
   const [success, setSuccess] = useState(false);
+  const [successDelete, setSuccessDelete] = useState(false);
 
   useEffect(() => {
     const fetchFavoriteSongs = async () => {
@@ -115,14 +117,14 @@ export default function Search() {
     } else {
       try {
         await UserSongApi.deleteUserSong(userProfile.uid, song.id);
-        setSuccess(true);
+        setSuccessDelete(true);
 
         setFavoriteSongs((prevFavoriteSongs) =>
           prevFavoriteSongs.filter((id) => id !== song.id)
         );
 
         setTimeout(() => {
-          setSuccess(false);
+          setSuccessDelete(false);
         }, 5000);
       } catch (e) {
         console.log(e);
@@ -135,9 +137,9 @@ export default function Search() {
   );
 
   return (
-    <div className="p-8 bg-background overflow-y-scroll">
+    <div className="p-8 bg-background overflow-y-scroll rounded-md">
       <div className="flex justify-between">
-        <h1 className="text-2xl text-text font-bold">
+        <h1 className="text-3xl text-text font-bold">
           Zoek hier naar alle nummers
         </h1>
         {userProfile.length !== 0 && <Avatar />}
@@ -276,6 +278,7 @@ export default function Search() {
       </div>
 
       {success && <SuccessMessage />}
+      {successDelete && <SuccessDeleteMessage />}
     </div>
   );
 }
