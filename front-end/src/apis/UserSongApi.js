@@ -11,6 +11,7 @@ if (process.env.NODE_ENV === "development") {
 
 export default class UserSongApi {
   static getUserSongs() {
+    console.log("test");
     return axios.get(userSongBaseUrl);
   }
 

@@ -12,6 +12,7 @@ namespace Spotify.DAL.Data
         public DbSet<Song> Songs { get; set; }
         public DbSet<UserSong> UserSongs { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Playlist> Playlists { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

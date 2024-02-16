@@ -5,16 +5,18 @@ import Sidebar from "./components/SideBar";
 import Search from "./components/Search";
 import Home from "./components/Home";
 import {useRecoilValue} from "recoil";
-import {userProfileState} from "./store";
+import {selectedPlaylist, userProfileState} from "./store";
 import Dashboard from "./components/Dashboard";
 import FavoriteSongs from "./components/FavoriteSongs";
 import Profile from "./components/Profile";
 import Login from "./components/Login";
 import ProtectedGuard from "./auth/ProtectedGuard";
 import Register from "./components/Register";
+import Playlist from "./components/Playlist";
 
 export default function App() {
   const userProfile = useRecoilValue(userProfileState);
+  const playlist = useRecoilValue(selectedPlaylist);
 
   return (
     <>
@@ -60,6 +62,15 @@ export default function App() {
                   }
                   element={<ProtectedGuard component={Profile} admin={false} />}
                 />
+
+                {playlist && (
+                  <Route
+                    path={"/playlist/" + playlist.id}
+                    element={
+                      <ProtectedGuard component={Playlist} admin={false} />
+                    }
+                  />
+                )}
               </Routes>
             </div>
           </div>

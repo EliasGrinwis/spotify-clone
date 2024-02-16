@@ -1,8 +1,8 @@
 import {Icon} from "@iconify/react";
 import {useEffect, useState, useRef} from "react";
 import {Link, useLocation} from "react-router-dom";
-import {useRecoilState, useRecoilValue} from "recoil";
-import {favoriteSongsState, userProfileState} from "../store";
+import {useRecoilState, useRecoilValue, useSetRecoilState} from "recoil";
+import {favoriteSongsState, selectedPlaylist, userProfileState} from "../store";
 import PlaylistApi from "../apis/PlaylistApi";
 import SongApi from "../apis/SongApi";
 
@@ -51,12 +51,16 @@ export default function Sidebar() {
     }
   };
 
-  const handlePlaylist = (e, id) => {
+  const setPlaylist = useSetRecoilState(selectedPlaylist);
+
+  const handlePlaylist = (e, playlist) => {
     e.preventDefault(); // Prevent default behavior for context menu
     if (e.type === "click") {
       setIsShowPlaylistOptions(0);
+
+      setPlaylist(playlist);
     } else if (e.type === "contextmenu") {
-      setIsShowPlaylistOptions(id);
+      setIsShowPlaylistOptions(playlist.id);
     }
   };
 
@@ -261,16 +265,21 @@ export default function Sidebar() {
               <div
                 className="relative"
                 key={index}
-                onClick={(e) => handlePlaylist(e, playlist.id)}
-                onContextMenu={(e) => handlePlaylist(e, playlist.id)}>
-                <Link to={playlist.name}>
+                onClick={(e) => handlePlaylist(e, playlist)}
+                onContextMenu={(e) => handlePlaylist(e, playlist)}>
+                <Link to={"playlist/" + playlist.id}>
                   <div
                     className={
-                      location.pathname === playlist.name
-                        ? "bg-lightgray bg-opacity-75 flex items-center justify-center lg:justify-normal gap-3 mt-4 cursor-pointer hover:bg-lightgray p-2 rounded-lg"
+                      location.pathname === "/playlist/" + playlist.id
+                        ? "bg-lightgray bg-opacity-75 flex items-center justify-center lg:justify-normal gap-3 cursor-pointer hover:bg-lightgray p-2 rounded-lg"
                         : "flex items-center justify-center lg:justify-normal gap-3 cursor-pointer hover:bg-lightgray p-2 rounded-lg"
                     }>
-                    <Icon className="w-7 h-7 text-text " icon="mynaui:music" />
+                    <div className="w-12 h-12 bg-lightgray flex items-center justify-center rounded-sm">
+                      <Icon
+                        className="w-7 h-7 text-customgray"
+                        icon="mynaui:music"
+                      />
+                    </div>
                     <div className="hidden lg:block">
                       <p className="text-text font-semibold">
                         Mijn {playlist.name} {playlist.id}

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Spotify.API.Dto.Playlist;
 using Spotify.API.Dto.Song;
 using Spotify.API.Dto.User;
 using Spotify.API.Dto.UserSong;
@@ -18,6 +19,9 @@ namespace Spotify.API.Mapper
 
             CreateMap<User, UserResponse>();
             CreateMap<UserRequest, User>();
+
+            CreateMap<Playlist, PlaylistResponse>();
+            CreateMap<PlaylistRequest, Playlist>();
         } 
     }
 }

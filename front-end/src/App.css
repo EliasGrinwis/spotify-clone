@@ -26,3 +26,7 @@
 .gradient-background {
   background: linear-gradient(to bottom, #292929, #000000);
 }
+
+.gradiant-playlist {
+  background: linear-gradient(to bottom, #545454, #2c2c2c);
+}

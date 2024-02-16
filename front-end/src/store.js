@@ -30,3 +30,8 @@ export const favoriteSongsState = atom({
   key: "favoriteSongsState",
   default: [],
 });
+
+export const selectedPlaylist = atom({
+  key: "selectedPlaylist",
+  default: null,
+});
